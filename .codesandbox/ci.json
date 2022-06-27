@@ -1,3 +1,4 @@
 {
-  "sandboxes": ["node"]
+  "sandboxes": ["new", "vanilla"],
+  "node": "16"
 }

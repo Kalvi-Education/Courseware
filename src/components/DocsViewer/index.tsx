@@ -9,9 +9,11 @@ interface IDocProps {
 
 const DocsViewer = (props: IDocProps): JSX.Element => {
   const match = props.src.match(/[-\w]{25,}(?!.*[-\w]{25,})/);
-  const iframeSrc = match.length
-    ? `http://docs.google.com/viewer?srcid=${match[0]}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`
-    : `https://docs.google.com/viewer?url=${props.src}&embedded=true&chrome=false`;
+
+  const iframeSrc =
+    match && match.length
+      ? `http://docs.google.com/viewer?srcid=${match[0]}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`
+      : `https://docs.google.com/viewer?url=${props.src}&embedded=true&chrome=false`;
 
   let style = {
     width: props.width ?? (props.toc.length > 0 ? 400 : "60vw"),

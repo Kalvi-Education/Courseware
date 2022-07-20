@@ -18,10 +18,12 @@ const parseSidebarItems = (items, docs) => {
     if (docs) {
       const doc = docs.find((doc) => doc.id === (item.link?.id ?? item.id));
       if (doc) {
-        const lessonsString = doc.frontMatter?.lessons ?? "";
-        const lessonsArray = lessonsString ? lessonsString.split(",") : [];
+        const learningUnitsString = doc.frontMatter?.learningUnits ?? "";
+        const learningUnitsArray = learningUnitsString
+          ? learningUnitsString.split(",")
+          : [];
         item.customProps = {
-          lessons: lessonsArray,
+          learningUnits: learningUnitsArray,
         };
       }
     }

@@ -3,12 +3,15 @@ import DocSidebarItemCategory from "@theme/DocSidebarItem/Category";
 import DocSidebarItemLink from "@theme/DocSidebarItem/Link";
 import DocSidebarItemHtml from "@theme/DocSidebarItem/Html";
 import { localStorageService } from "@site/src/services/storage/localStorage";
-import { lessonStoreKey } from "@site/src/services/storage/storage";
+import { learningUnitStoreKey } from "@site/src/services/storage/storage";
 
-const calculateLessonGroupCompletionStatus = (lessons, completedLessons) => {
+const calculateLearningUnitGroupCompletionStatus = (
+  learningUnits,
+  completedLearningUnits
+) => {
   let completed = 0;
-  lessons.forEach((lesson) => {
-    if (completedLessons.includes(lesson.trim())) {
+  learningUnits.forEach((learningUnit) => {
+    if (completedLearningUnits.includes(learningUnit.trim())) {
       completed++;
     }
   });
@@ -16,9 +19,9 @@ const calculateLessonGroupCompletionStatus = (lessons, completedLessons) => {
   let completionFlag = 0;
 
   if (completed === 0) {
-    // Not started OR no lessons
+    // Not started OR no learningUnits
     completionFlag = 0;
-  } else if (completed === lessons.length) {
+  } else if (completed === learningUnits.length) {
     // Fully complete
     completionFlag = 2;
   } else {
@@ -30,19 +33,21 @@ const calculateLessonGroupCompletionStatus = (lessons, completedLessons) => {
 };
 
 export default function DocSidebarItem({ item, ...props }) {
-  let completed = localStorageService.getCompletedLessons();
+  let completed = localStorageService.getCompletedLearningUnits();
 
-  const lessons =
+  const learningUnits =
     item.type === "link"
-      ? item.customProps?.lessons ?? []
+      ? item.customProps?.learningUnits ?? []
       : item.type === "category"
       ? [
           ...new Set(
             [].concat.apply(
               [],
               item.items.map((child) => {
-                const childLessons = [].concat(...child.customProps?.lessons);
-                return childLessons;
+                const childLearningUnits = [].concat(
+                  ...child.customProps?.learningUnits
+                );
+                return childLearningUnits;
               })
             )
           ),
@@ -50,12 +55,14 @@ export default function DocSidebarItem({ item, ...props }) {
       : [];
 
   const [completionFlag, setCompletionFlag] = useState(() =>
-    calculateLessonGroupCompletionStatus(lessons, completed)
+    calculateLearningUnitGroupCompletionStatus(learningUnits, completed)
   );
 
   localStorageService.onUpdate(({ key, value }) => {
-    if (key === lessonStoreKey) {
-      setCompletionFlag(calculateLessonGroupCompletionStatus(lessons, value));
+    if (key === learningUnitStoreKey) {
+      setCompletionFlag(
+        calculateLearningUnitGroupCompletionStatus(learningUnits, value)
+      );
     }
   });
 

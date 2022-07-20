@@ -6,20 +6,21 @@ interface IReadStatusProps {
 }
 
 const ReadStatus = (props: IReadStatusProps): JSX.Element => {
-  const lessons = (props.frontMatter.lessons ?? "")
+  const learningUnits = (props.frontMatter.learningUnits ?? "")
     .split(",")
     .map((lesson: string) => lesson.trim());
 
-  const completionStatus = localStorageService.areLessonsComplete(lessons);
+  const completionStatus =
+    localStorageService.arelearningUnitsComplete(learningUnits);
 
   const [read, setRead] = React.useState(completionStatus);
 
   const handleChange = () => {
     const newReadStatus = !read;
     if (newReadStatus) {
-      localStorageService.updateCompletedLessons(lessons);
+      localStorageService.updateCompletedlearningUnits(learningUnits);
     } else {
-      localStorageService.removeCompletedLessons(lessons);
+      localStorageService.removeCompletedlearningUnits(learningUnits);
     }
     setRead(newReadStatus);
   };

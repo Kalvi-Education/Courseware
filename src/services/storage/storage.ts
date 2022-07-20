@@ -1,4 +1,4 @@
-export const lessonStoreKey = "completedLessons";
+export const learningUnitStoreKey = "completedLearningUnits";
 
 export abstract class StorageService {
   id: string;
@@ -27,30 +27,32 @@ export abstract class StorageService {
     this.onUpdateCallbacks.push(callback);
   }
 
-  setCompletedLessons(lessons: string[]) {
-    this.set(lessonStoreKey, lessons);
+  setCompletedLearningUnits(learningUnits: string[]) {
+    this.set(learningUnitStoreKey, learningUnits);
   }
 
-  getCompletedLessons(): string[] {
-    return this.get(lessonStoreKey);
+  getCompletedLearningUnits(): string[] {
+    return this.get(learningUnitStoreKey) ?? [];
   }
 
-  updateCompletedLessons(lessons: string[]): void {
-    this.setCompletedLessons([
-      ...new Set([...this.getCompletedLessons(), ...lessons]),
+  updateCompletedlearningUnits(learningUnits: string[]): void {
+    this.setCompletedLearningUnits([
+      ...new Set([...this.getCompletedLearningUnits(), ...learningUnits]),
     ]);
   }
 
-  removeCompletedLessons(lessons: string[]): void {
-    this.setCompletedLessons(
-      this.getCompletedLessons().filter((lesson) => !lessons.includes(lesson))
+  removeCompletedlearningUnits(learningUnits: string[]): void {
+    this.setCompletedLearningUnits(
+      this.getCompletedLearningUnits().filter(
+        (learningUnit) => !learningUnits.includes(learningUnit)
+      )
     );
   }
 
-  areLessonsComplete(lessons: string[]): boolean {
-    const completedLessons = this.getCompletedLessons();
-    for (const lesson of lessons) {
-      if (!completedLessons.includes(lesson)) {
+  arelearningUnitsComplete(learningUnits: string[]): boolean {
+    const completedLearningUnits = this.getCompletedLearningUnits();
+    for (const learningUnit of learningUnits) {
+      if (!completedLearningUnits.includes(learningUnit)) {
         return false;
       }
     }

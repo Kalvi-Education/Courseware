@@ -4,10 +4,10 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
-const parseSidebarItems = (items) => {
+const parseSidebarItems = (items, docs) => {
   const result = items.map((item) => {
     if (item.items && item.items.length > 0) {
-      item.items = parseSidebarItems(item.items);
+      item.items = parseSidebarItems(item.items, docs);
     }
     let label = item.label;
     if (!label) {
@@ -15,6 +15,16 @@ const parseSidebarItems = (items) => {
       label = generatedLabel[generatedLabel.length - 1];
     }
     item.label = label.replace(/-/g, " ");
+    if (docs) {
+      const doc = docs.find((doc) => doc.id === (item.link?.id ?? item.id));
+      if (doc) {
+        const lessonsString = doc.frontMatter?.lessons ?? "";
+        const lessonsArray = lessonsString ? lessonsString.split(",") : [];
+        item.customProps = {
+          lessons: lessonsArray,
+        };
+      }
+    }
     return item;
   });
   return result;
@@ -37,7 +47,7 @@ const config = {
 
   i18n: {
     defaultLocale: "en",
-    locales: ["en"]
+    locales: ["en"],
   },
 
   presets: [
@@ -51,17 +61,21 @@ const config = {
           routeBasePath: "course1",
           async sidebarItemsGenerator({
             defaultSidebarItemsGenerator,
+            docs,
             ...args
           }) {
-            const sidebarItems = await defaultSidebarItemsGenerator(args);
-            return parseSidebarItems(sidebarItems);
-          }
+            const sidebarItems = await defaultSidebarItemsGenerator({
+              docs,
+              ...args,
+            });
+            return parseSidebarItems(sidebarItems, docs);
+          },
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css")
-        }
-      })
-    ]
+          customCss: require.resolve("./src/css/custom.css"),
+        },
+      }),
+    ],
   ],
 
   plugins: [
@@ -72,11 +86,18 @@ const config = {
         path: "course2",
         routeBasePath: "course2",
         sidebarPath: require.resolve("./sidebars.js"),
-        async sidebarItemsGenerator({ defaultSidebarItemsGenerator, ...args }) {
-          const sidebarItems = await defaultSidebarItemsGenerator(args);
-          return parseSidebarItems(sidebarItems);
-        }
-      }
+        async sidebarItemsGenerator({
+          defaultSidebarItemsGenerator,
+          docs,
+          ...args
+        }) {
+          const sidebarItems = await defaultSidebarItemsGenerator({
+            docs,
+            ...args,
+          });
+          return parseSidebarItems(sidebarItems, docs);
+        },
+      },
     ],
     [
       "@docusaurus/plugin-content-docs",
@@ -85,11 +106,18 @@ const config = {
         path: "Contribution-Guide",
         routeBasePath: "Contribution-Guide",
         sidebarPath: require.resolve("./sidebars.js"),
-        async sidebarItemsGenerator({ defaultSidebarItemsGenerator, ...args }) {
-          const sidebarItems = await defaultSidebarItemsGenerator(args);
-          return parseSidebarItems(sidebarItems);
-        }
-      }
+        async sidebarItemsGenerator({
+          defaultSidebarItemsGenerator,
+          docs,
+          ...args
+        }) {
+          const sidebarItems = await defaultSidebarItemsGenerator({
+            docs,
+            ...args,
+          });
+          return parseSidebarItems(sidebarItems, docs);
+        },
+      },
     ],
     [
       "@docusaurus/plugin-content-docs",
@@ -98,12 +126,20 @@ const config = {
         path: "Semester-1",
         routeBasePath: "Semester-1",
         sidebarPath: require.resolve("./sidebars.js"),
-        async sidebarItemsGenerator({ defaultSidebarItemsGenerator, ...args }) {
-          const sidebarItems = await defaultSidebarItemsGenerator(args);
-          return parseSidebarItems(sidebarItems);
-        }
-      }
-    ]
+        async sidebarItemsGenerator({
+          defaultSidebarItemsGenerator,
+          docs,
+          ...args
+        }) {
+          const sidebarItems = await defaultSidebarItemsGenerator({
+            docs,
+            ...args,
+          });
+
+          return parseSidebarItems(sidebarItems, docs);
+        },
+      },
+    ],
   ],
 
   themeConfig:
@@ -113,7 +149,7 @@ const config = {
         title: "Kalvi courseware",
         logo: {
           alt: "Kalvi logo",
-          src: "https://s3.ap-south-1.amazonaws.com/kalvi-education.github.io/img/logo.svg"
+          src: "https://s3.ap-south-1.amazonaws.com/kalvi-education.github.io/img/logo.svg",
         },
         items: [
           {
@@ -123,31 +159,31 @@ const config = {
             items: [
               {
                 label: "Course1",
-                to: "/course1/docs"
+                to: "/course1/docs",
               },
               {
                 label: "Course2",
-                to: "/course2/docs"
+                to: "/course2/docs",
               },
               {
                 label: "Semester-1",
-                to: "/Semester-1/docs"
-              }
+                to: "/Semester-1/docs",
+              },
 
               // ... more items
-            ]
+            ],
           },
           {
             label: "Contribution Guide",
             to: "/Contribution-Guide/docs",
-            position: "right"
+            position: "right",
           },
           {
             label: "Contribute",
             position: "right",
-            href: "https://githubbox.com/Kalvi-Education/Courseware"
-          }
-        ]
+            href: "https://githubbox.com/Kalvi-Education/Courseware",
+          },
+        ],
       },
       footer: {
         style: "dark",
@@ -157,35 +193,35 @@ const config = {
             items: [
               {
                 label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus"
+                href: "https://stackoverflow.com/questions/tagged/docusaurus",
               },
               {
                 label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus"
+                href: "https://discordapp.com/invite/docusaurus",
               },
               {
                 label: "Twitter",
-                href: "https://twitter.com/docusaurus"
-              }
-            ]
+                href: "https://twitter.com/docusaurus",
+              },
+            ],
           },
           {
             title: "More",
             items: [
               {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus"
-              }
-            ]
-          }
+                href: "https://github.com/facebook/docusaurus",
+              },
+            ],
+          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`
+        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
-        darkTheme: darkCodeTheme
-      }
-    })
+        darkTheme: darkCodeTheme,
+      },
+    }),
 };
 
 module.exports = config;

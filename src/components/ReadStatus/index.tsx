@@ -6,7 +6,7 @@ interface IReadStatusProps {
 }
 
 const ReadStatus = (props: IReadStatusProps): JSX.Element => {
-  const lessons = (props.frontMatter.lessons ?? [])
+  const lessons = (props.frontMatter.lessons ?? "")
     .split(",")
     .map((lesson: string) => lesson.trim());
 
@@ -26,8 +26,8 @@ const ReadStatus = (props: IReadStatusProps): JSX.Element => {
 
   return (
     <div>
-      Hello
       <input type="checkbox" checked={read} onChange={handleChange} />
+      Mark as read
     </div>
   );
 };

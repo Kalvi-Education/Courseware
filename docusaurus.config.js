@@ -68,6 +68,19 @@ const config = {
     [
       "@docusaurus/plugin-content-docs",
       {
+        id: "course2",
+        path: "course2",
+        routeBasePath: "course2",
+        sidebarPath: require.resolve("./sidebars.js"),
+        async sidebarItemsGenerator({ defaultSidebarItemsGenerator, ...args }) {
+          const sidebarItems = await defaultSidebarItemsGenerator(args);
+          return parseSidebarItems(sidebarItems);
+        }
+      }
+    ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
         id: "Contribution-Guide",
         path: "Contribution-Guide",
         routeBasePath: "Contribution-Guide",
@@ -108,6 +121,14 @@ const config = {
             label: "Courses",
             position: "left",
             items: [
+              {
+                label: "Course1",
+                to: "/course1/docs"
+              },
+              {
+                label: "Course2",
+                to: "/course2/docs"
+              },
               {
                 label: "Semester-1",
                 to: "/Semester-1/docs"

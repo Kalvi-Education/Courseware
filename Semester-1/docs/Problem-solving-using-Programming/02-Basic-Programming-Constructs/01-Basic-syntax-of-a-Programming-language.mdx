@@ -1,1 +1,116 @@
-Basic syntax of a Programming language
+# Basic syntax of a Programming language
+import Youtube from "@site/src/components/Youtube";
+
+## Lesson Objective
+In this lesson we will get introduced to “Problem solving using Programming languages”. We know that specific structures called languages are required in order to communicate with computers, and those languages are called programming languages. By the end of this lesson you will learn how to get input from the user and print it on the screen.
+
+Let’s go learn our first programming language now!
+
+![](https://media1.giphy.com/media/h408T6Y5GfmXBKW62l/giphy.gif?cid=790b7611a7eb545bfca72a16d96cf81307d942645a5137e1&rid=giphy.gif&ct=g)
+
+Source: [GIPHY](https://giphy.com/gifs/codeit-official-coding-helloworld-codeit-h408T6Y5GfmXBKW62l)
+
+## Types of programming languages
+
+Programming languages are broadly classified into three types:
+
+1. Low-level languages
+
+2. High-level languages
+
+3. Middle-level languages
+
+Out of these 3 types, we are going to look at *High-level programming languages* in further detail. 
+
+📌 **High-level programming languages (HLL)** are designed for developing user-friendly software programs and websites.
+
+These programming languages require a compiler or interpreter to translate the program into machine language (to execute the program).
+
+` Example: Python, Java, JavaScript, PHP, C#, C++, etc.`
+
+
+**In this course we will learn the languages C++ and Python in parallel. Read on!!**
+
+## An introduction to C++
+
+<Youtube videoId="s0g4ty29Xgg" start="57" end = "382"/>
+
+### Introduction to programming languages
+
+Let’s recap... 
+
+- A computer is a device that can process instructions from humans and respond to them, or it can be a computational tool used to process data while being guided by a computer program. 
+
+- A set of instructions supplied to a computer to carry out a particular task is known as a program. 
+
+ - A programming language is a type of computer language that programmers use to create software applications, scripts, or other collections of instructions that are executed by computers. We can just remember a programming language as a tool to solve problems. 
+ 
+ We are going to solve a lot of problems in this course so stay tuned!
+
+**Problem statement 1**
+
+You are an aspiring Computer Science Engineer, so your parents have enrolled you in the Kalvi CS course. Wouldn’t it be cool to make a birthday wish to your dad with a simple code that you have learned? This code will help you print “Happy birthday dad!” on your output screen. 
+
+**Solution in C++**
+
+Here is a simple C++ program that prints output on the screen. This program prints the output as Happy birthday dad!
+
+```
+
+#include <iostream>
+using namespace std;
+int main() {
+  cout << "Happy birthday dad!";
+  return 0;
+}
+
+```
+
+Now, this may look like an alien language to you but as we move ahead you will learn the syntax and how to use this alien language 👽:alien:
+ 
+**Explanation:** In the program, whatever sentence is given inside double quotes of cout(pronounced as see-out) will be printed as it is.
+
+C++ syntax explained: 
+To get a better understanding of the syntax, let’s break the program into different lines. 
+
+Line 1: #include <iostream>
+Line 2: using namespace std;
+Line 3: int main() {
+Line 4: cout << "I am C++!";
+Line 5: return 0;
+Line 6: }
+
+:pencil: Note: Every C++ statement ends with a semicolon ;
+
+```
+Line 1: #include <iostream> is a header file library that lets us work with input and output objects, such as cout (used in line 5). Header files add functionality to C++ programs.
+
+Line 2: using namespace std provides us the standard library from which we can use names for objects and variables. 
+
+Line 3: One thing that always appears in a C++ program, is int main(). This is called a function. Any code inside its curly brackets { } will be executed.
+
+Line 4: cout (pronounced "see-out") is an object used together with the insertion operator (<<) to output/print something on the output screen. In our example it will output "I am c++!".
+
+💡 :bulb:Remember: The compiler ignores white spaces. However, multiple lines makes the code more readable so it is advisable to use indentation. 
+
+Line 5: return 0 ends the main function. You will learn more about the purpose of “return” statement when we discuss “functions” in future lessons.
+
+Line 6: Do not forget to add the closing curly bracket } to actually end the main function.
+
+```
+
+:pencil: Note: The body of int main() could also been written as:
+
+`int main () { cout << "I am C++!"; return 0; }`
+
+**Solution in Python:**
+
+Here is a simple python program that prints output on the screen. This program prints the output as Happy birthday dad!
+
+`print("Happy birthday dad!")`
+
+**Explanation:** Python is a very programmer friendly language with very less complex syntax to remember. This program consists of a simple one line code and hence this language is considered easy to pick-up for beginners. 
+
+Up next, let us try to write a program that takes input and prints an output. 🚀
+
+

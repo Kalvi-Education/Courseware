@@ -28,3 +28,33 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+.sidebar_completion_2 {
+  color: green;
+}
+
+.sidebar_category_completion_2 {
+  color: green;
+}
+
+.sidebar_completion_2::before {
+  content: "\2713";
+  display: inline-block;
+  color: green;
+  padding: 0 6px 0 0;
+}
+
+.sidebar_completion_1 {
+  color: orange;
+}
+
+.sidebar_category_completion_1 {
+  color: orange;
+}
+
+.sidebar_completion_1::before {
+  content: "\2713";
+  display: inline-block;
+  color: orange;
+  padding: 0 6px 0 0;
+}
